@@ -31,9 +31,9 @@ func main() {
 	var ja [1 + 1000]int
 	//double ar[1+1000], z, x1, x2;
 	var ar [1 + 1000]float64
-	var z []float64
-	var x1 []float64
-	var x2 []float64
+	var z float64
+	var x1 float64
+	var x2 float64
 
 	/* create problem */
 	//lp = glp_create_prob();
@@ -47,14 +47,8 @@ func main() {
 	lp_probe_name := C.CString("short")
 	defer C.free(unsafe.Pointer(lp_probe_name))
 	_, err := C.glp_set_prob_name(lp, lp_probe_name)
-	if err {
-		fmt.Println(err)
-	}
 	//glp_set_obj_dir(lp, GLP_MAX);
 	_, err = C.glp_set_obj_dir(lp, C.GLP_MAX)
-	if err {
-		fmt.Println(err)
-	}
 
 	/* fill problem */
 	//glp_add_rows(lp, 2);
@@ -110,7 +104,7 @@ func main() {
 
 	/* solve problem */
 	//glp_simplex(lp, NULL);
-	_, err = glp_simplex(lp, nil)
+	_, err = C.glp_simplex(lp, nil)
 
 	/* recover and display results */
 	//z = glp_get_obj_val(lp);
@@ -120,7 +114,7 @@ func main() {
 	//x2 = glp_get_col_prim(lp, 2);
 	x2, err := C.glp_get_col_prim(lp, 2)
 	//printf("z = %g; x1 = %g; x2 = %g\n", z, x1, x2);
-	fmt.Printf("z = %g; x1 = %g; x2 = %g\n", z, x1, x2)
+	fmt.Printf("z = %f; x1 = %f; x2 = %f\n", z, x1, x2)
 
 	/* housekeeping */
 	//glp_delete_prob(lp);
