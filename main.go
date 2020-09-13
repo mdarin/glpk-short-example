@@ -27,13 +27,13 @@ func main() {
 	//glp_prob *lp;
 	var lp *C.glp_prob
 	//int ia[1+1000], ja[1+1000];
-	var ia [1 + 1000]C._Ctype_int
-	var ja [1 + 1000]C._Ctype_int
+	var ia [1 + 1000]C.int
+	var ja [1 + 1000]C.int
 	//double ar[1+1000], z, x1, x2;
-	var ar [1 + 1000]C._Ctype_double
-	var z float64
-	var x1 float64
-	var x2 float64
+	var ar [1 + 1000]C.double
+	var z C.double
+	var x1 C.double
+	var x2 C.double
 
 	/* create problem */
 	//lp = glp_create_prob();
