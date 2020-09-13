@@ -100,7 +100,7 @@ func main() {
 	ia[4] = 2
 	ja[4] = 2
 	ar[4] = 1.0 /* a[2,2] = 1 */
-	_, err = C.glp_load_matrix(lp, 4, ia, ja, ar)
+	_, err = C.glp_load_matrix(lp, 4, (*C.int)(ia), (*C.int)(ja), (*C.double)(ar))
 
 	/* solve problem */
 	//glp_simplex(lp, NULL);
