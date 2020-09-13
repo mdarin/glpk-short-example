@@ -27,10 +27,10 @@ func main() {
 	//glp_prob *lp;
 	var lp *C.glp_prob
 	//int ia[1+1000], ja[1+1000];
-	var ia [1 + 1000]int
-	var ja [1 + 1000]int
+	var ia [1 + 1000]C._Ctype_int
+	var ja [1 + 1000]C._Ctype_int
 	//double ar[1+1000], z, x1, x2;
-	var ar [1 + 1000]float64
+	var ar [1 + 1000]C._Ctype_double
 	var z float64
 	var x1 float64
 	var x2 float64
@@ -108,11 +108,11 @@ func main() {
 
 	/* recover and display results */
 	//z = glp_get_obj_val(lp);
-	z, err := C.glp_get_obj_val(lp)
+	z, err = C.glp_get_obj_val(lp)
 	//x1 = glp_get_col_prim(lp, 1);
-	x1, err := C.glp_get_col_prim(lp, 1)
+	x1, err = C.glp_get_col_prim(lp, 1)
 	//x2 = glp_get_col_prim(lp, 2);
-	x2, err := C.glp_get_col_prim(lp, 2)
+	x2, err = C.glp_get_col_prim(lp, 2)
 	//printf("z = %g; x1 = %g; x2 = %g\n", z, x1, x2);
 	fmt.Printf("z = %f; x1 = %f; x2 = %f\n", z, x1, x2)
 
