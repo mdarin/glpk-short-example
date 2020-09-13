@@ -8,6 +8,7 @@ package main
 #cgo CFLAGS: -I/usr/local/include/
 #cgo LDFLAGS: -L/usr/local/lib -lglpk
 #include <glpk.h>
+#include <stdlib.h>
 */
 import "C"
 import "unsafe"
@@ -15,13 +16,9 @@ import (
 	"fmt"
 )
 
-const(
+const ()
 
-)
-
-var(
-
-)
+var ()
 
 func main() {
 	fmt.Println("hello")
@@ -30,10 +27,10 @@ func main() {
 	//glp_prob *lp;
 	var lp *C.glp_prob
 	//int ia[1+1000], ja[1+1000];
-	var ia [1+1000]int
-	var ja [1+1000]int
+	var ia [1 + 1000]int
+	var ja [1 + 1000]int
 	//double ar[1+1000], z, x1, x2;
-	var ar [1+1000]float64
+	var ar [1 + 1000]float64
 	var z []float64
 	var x1 []float64
 	var x2 []float64
@@ -100,20 +97,20 @@ func main() {
 	ia[1] = 1
 	ja[1] = 1
 	ar[1] = 1.0 /* a[1,1] = 1 */
-	ia[2] = 1 
-	ja[2] = 2 
+	ia[2] = 1
+	ja[2] = 2
 	ar[2] = 2.0 /* a[1,2] = 2 */
-	ia[3] = 2 
+	ia[3] = 2
 	ja[3] = 1
 	ar[3] = 3.0 /* a[2,1] = 3 */
-	ia[4] = 2 
+	ia[4] = 2
 	ja[4] = 2
 	ar[4] = 1.0 /* a[2,2] = 1 */
-	_, err = C.glp_load_matrix(lp, 4, ia, ja, ar);
+	_, err = C.glp_load_matrix(lp, 4, ia, ja, ar)
 
 	/* solve problem */
 	//glp_simplex(lp, NULL);
-	_, err = glp_simplex(lp, nil);
+	_, err = glp_simplex(lp, nil)
 
 	/* recover and display results */
 	//z = glp_get_obj_val(lp);
