@@ -40,8 +40,8 @@ func main() {
 	lp = C.glp_create_prob()
 	// A common idiom in cgo programs is to defer the free immediately after allocating
 	/* housekeeping */
-	defer C.glp_delete_prob(lp)
-	defer C.glp_free_env()
+	//defer C.glp_delete_prob(lp)
+	//defer C.glp_free_env()
 
 	//glp_set_prob_name(lp, "short");
 	lp_probe_name := C.CString("short")
@@ -100,7 +100,10 @@ func main() {
 	ia[4] = 2
 	ja[4] = 2
 	ar[4] = 1.0 /* a[2,2] = 1 */
-	_, err = C.glp_load_matrix(lp, 4, (*C.int)(ia), (*C.int)(ja), (*C.double)(ar))
+	var p_ar *C.double = &ar[0]
+	var p_ia *C.int = &ia[0]
+	var p_ja *C.int = &ja[0]
+	_, err = C.glp_load_matrix(lp, 4, p_ia, p_ja, p_ar)
 
 	/* solve problem */
 	//glp_simplex(lp, NULL);
@@ -120,4 +123,7 @@ func main() {
 	//glp_delete_prob(lp);
 	//glp_free_env();
 	//return 0;
+	_, err = C.glp_delete_prob(lp)
+	_, err = C.glp_free_env()
+	fmt.Println(err)
 }
